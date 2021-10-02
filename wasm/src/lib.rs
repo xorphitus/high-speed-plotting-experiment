@@ -35,7 +35,7 @@ fn draw(canvas_id: &str, data: &[f32]) -> DrawResult<impl Fn((i32, i32)) -> Opti
         .caption("this is a caption", font)
         .x_label_area_size(30)
         .y_label_area_size(30)
-        .build_cartesian_2d(0.2f32..10000.2f32, -1f32..1f32)?;
+        .build_cartesian_2d(0.2f32..5000.2f32, -1f32..1f32)?;
 
     chart.configure_mesh().x_labels(3).y_labels(3).draw()?;
     chart.draw_series(LineSeries::new(
