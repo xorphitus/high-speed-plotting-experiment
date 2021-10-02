@@ -1,32 +1,29 @@
-import React, {  useEffect } from 'react';
-import logo from './logo.svg';
+import React, {useEffect} from 'react';
 import './App.css';
 
-function App() {
-  useEffect(() => {
-    (async () => {
-      import("wasm");
-    })();
-  });
+const canvasId = "cv";
+const data = (() => {
+    const cnt = 10000;
+    const d = new Array(cnt);
+    for (let i = 0; i < cnt; i++) {
+        d[i] = Math.sin(i);
+    }
+    return d;
+})();
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function App() {
+    useEffect(() => {
+        (async () => {
+            const wasmDraw = (await import("wasm")).draw_wasm_line_chart;
+            wasmDraw(canvasId, data);
+        })();
+    });
+
+    return (
+        <div className="App">
+            <canvas id={canvasId} width="600" height="400" />
+        </div>
+    );
 }
 
 export default App;
